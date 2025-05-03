@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import dev.lchang.countryappue.presentation.auth.LoginScreen
 import dev.lchang.countryappue.presentation.auth.RegisterScreen
 import dev.lchang.countryappue.presentation.home.CountryListScreen
+import dev.lchang.countryappue.presentation.navigation.NavigationMenu
 import dev.lchang.countryappue.ui.theme.CountryappueTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CountryappueTheme {
                 // A surface container using the 'background' color from the themeRegisterScreen()
-                CountryListScreen()
+                NavigationMenu()
             }
         }
     }

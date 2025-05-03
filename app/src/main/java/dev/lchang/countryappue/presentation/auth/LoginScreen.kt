@@ -16,10 +16,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 
 @Composable
-fun LoginScreen(){
+fun LoginScreen(navController: NavController){
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -45,7 +46,7 @@ fun LoginScreen(){
         )
         //Add button
         Button(onClick = {
-            //Add logic for login
+            navController.navigate("home")
         }, modifier = Modifier.fillMaxWidth()) {
             Text("Iniciar Sesión")
         }
