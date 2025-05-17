@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import dev.lchang.countryappue.presentation.auth.LoginScreen
 import dev.lchang.countryappue.presentation.auth.RegisterScreen
 import dev.lchang.countryappue.presentation.home.CountryListScreen
+import dev.lchang.countryappue.presentation.permissions.GalleryPermissionScreen
 
 @Composable
 fun NavigationMenu(){
@@ -27,8 +28,7 @@ fun NavigationMenu(){
 
         composable("permissions"){
             DrawerScaffold(navController) {
-                //TODO: Permissions screen
-                Text("Pantalla de permisos")
+               GalleryPermissionScreen()
             }
         }
 
