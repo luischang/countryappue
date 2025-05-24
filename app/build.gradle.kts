@@ -62,6 +62,14 @@ dependencies {
     //Add navigation compose
     implementation("androidx.navigation:navigation-compose:2.6.0")
 
+    //Add room
+    implementation("androidx.room:room-runtime:2.7.1")
+    annotationProcessor("androidx.room:room-compiler:2.7.1")
+    implementation("androidx.room:room-ktx:2.7.1")
+
+
+
+
 
 
 }
