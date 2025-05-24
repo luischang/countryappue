@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import dev.lchang.countryappue.presentation.auth.LoginScreen
 import dev.lchang.countryappue.presentation.auth.RegisterScreen
+import dev.lchang.countryappue.presentation.favorites.FavoriteScreen
 import dev.lchang.countryappue.presentation.home.CountryListScreen
 import dev.lchang.countryappue.presentation.permissions.GalleryPermissionScreen
 
@@ -14,7 +15,7 @@ import dev.lchang.countryappue.presentation.permissions.GalleryPermissionScreen
 fun NavigationMenu(){
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "register"){
+    NavHost(navController = navController, startDestination = "home"){
         composable("register"){ RegisterScreen(navController)}
         composable("login"){ LoginScreen(navController)}
 
@@ -34,8 +35,7 @@ fun NavigationMenu(){
 
         composable("favorites"){
             DrawerScaffold(navController) {
-                //TODO: Favorites screen
-                Text("Pantalla de favoritos")
+                FavoriteScreen()
             }
         }
 

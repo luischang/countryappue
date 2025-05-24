@@ -10,7 +10,6 @@ abstract class AppDatabase: RoomDatabase(){
     abstract fun favoriteCountryDao(): FavoriteCountryDao
 
     companion object{
-        const val DATABASE_NAME = "country_database"
         @Volatile
         private var INSTANCE : AppDatabase?=null
 
@@ -19,7 +18,7 @@ abstract class AppDatabase: RoomDatabase(){
                 Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    DATABASE_NAME
+                    "country_database"
                 ).build().also { INSTANCE = it }
             }
         }

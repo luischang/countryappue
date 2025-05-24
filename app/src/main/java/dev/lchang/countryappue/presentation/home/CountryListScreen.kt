@@ -16,57 +16,64 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
+import dev.lchang.countryappue.data.local.AppDatabase
+import dev.lchang.countryappue.data.local.FavoriteCountryEntity
+import dev.lchang.countryappue.data.model.CountryModel
+import dev.lchang.countryappue.data.repository.FavoriteRepository
+import dev.lchang.countryappue.presentation.components.CountryList
+import dev.lchang.countryappue.presentation.favorites.FavoriteViewModel
+import dev.lchang.countryappue.presentation.favorites.FavoriteViewModelFactory
 
-data class Country(val name: String, val ranking: Int, val flag: String)
 
 //mock data
 val countries = listOf(
-    Country("Argentina", 1, "https://flagcdn.com/w320/ar.png"),
-    Country("Brasil", 2, "https://flagcdn.com/w320/br.png"),
-    Country("Colombia", 3, "https://flagcdn.com/w320/co.png"),
-    Country("España", 4, "https://flagcdn.com/w320/es.png"),
-    Country("México", 55, "https://flagcdn.com/w320/mx.png"),
-    Country("Perú", 6, "https://flagcdn.com/w320/pe.png"),
-    Country("Uruguay", 7, "https://flagcdn.com/w320/uy.png"),
+    CountryModel("Argentina", 1, "https://flagcdn.com/w320/ar.png"),
+    CountryModel("Brasil", 2, "https://flagcdn.com/w320/br.png"),
+    CountryModel("Colombia", 3, "https://flagcdn.com/w320/co.png"),
+    CountryModel("España", 4, "https://flagcdn.com/w320/es.png"),
+    CountryModel("México", 55, "https://flagcdn.com/w320/mx.png"),
+    CountryModel("Perú", 6, "https://flagcdn.com/w320/pe.png"),
+    CountryModel("Uruguay", 7, "https://flagcdn.com/w320/uy.png"),
 )
 
 
 @Composable
 fun CountryListScreen(){
+    val context = LocalContext.current
+    val db = remember { AppDatabase.getInstance(context) }
+    val repository = remember { FavoriteRepository(db.favoriteCountryDao()) }
+    val viewModel : FavoriteViewModel = viewModel(factory = FavoriteViewModelFactory(repository))
+    val favorites by viewModel.favorites.collectAsState(emptyList())
+
+    val favoriteNames  =favorites.map { it.name }
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ) {
         Spacer(modifier = Modifier.padding(10.dp))
         Text("Ranking FIFA")
 
-        LazyColumn{
-            items(countries){ country ->
-                //Add card
-                Card(modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .padding(vertical = 8.dp))
-                {
-                    Row(modifier = Modifier.padding(16.dp))
-                    {
-                        Image(
-                            painter = rememberAsyncImagePainter(country.flag),
-                            contentDescription = country.name,
-                            modifier = Modifier.size(50.dp)
-                        )
-                        Spacer(modifier = Modifier.padding(10.dp))
-                        Column {
-                            Text(text = country.name, style = MaterialTheme.typography.titleMedium)
-                            Text(text = country.ranking.toString())
-                        }
+        CountryList(
+            countries = countries,
+            favorites = favorites.map { it.name },
+            onToggleFavorite = { country ->
+                val isFavorite = favoriteNames.contains(country.name)
+                if(isFavorite){
+                    favorites.find { it.name == country.name }?.let {
+                        viewModel.deleteFavorite(it.id)
                     }
+                }else{
+                    viewModel.insertFavorite(
+                        FavoriteCountryEntity(name = country.name, ranking = country.ranking, imageUrl = country.flag)
+                    )
                 }
             }
-        }
-
-
-
+        )
     }
-
 }
