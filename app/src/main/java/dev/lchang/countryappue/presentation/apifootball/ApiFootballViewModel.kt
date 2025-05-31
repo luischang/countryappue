@@ -26,6 +26,10 @@ class ApiFootballViewModel: ViewModel() {
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
 
+    init{
+        loadCountries()
+    }
+
     fun loadCountries(){
         viewModelScope.launch {
             _isLoading.value = true

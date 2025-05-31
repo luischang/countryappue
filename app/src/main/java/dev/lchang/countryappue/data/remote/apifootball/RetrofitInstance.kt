@@ -5,8 +5,8 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "https://v3.footbal.api-sports.io/"
-private const val API_KEY = "<API-KEY>"
+private const val BASE_URL = "https://v3.football.api-sports.io/"
+private const val API_KEY = "<YOUR-API-KEY>"
 
 
 object RetrofitInstance {
