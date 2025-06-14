@@ -16,7 +16,7 @@ import dev.lchang.countryappue.presentation.permissions.GalleryPermissionScreen
 fun NavigationMenu(){
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "home"){
+    NavHost(navController = navController, startDestination = "register"){
         composable("register"){ RegisterScreen(navController)}
         composable("login"){ LoginScreen(navController)}
 
