@@ -88,6 +88,16 @@ fun DrawerScaffold(navController: NavController, content: @Composable () -> Unit
                         scope.launch { drawerState.close() }
                     }
                 )
+
+                //Chat Gemini navigation
+                NavigationDrawerItem(
+                    label = { Text("Chat") },
+                    selected = false,
+                    onClick = {
+                        navController.navigate("chat")
+                        scope.launch { drawerState.close() }
+                    }
+                )
             }
         }
     ) {
