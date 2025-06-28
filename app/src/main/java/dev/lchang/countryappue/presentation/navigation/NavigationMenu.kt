@@ -11,6 +11,7 @@ import dev.lchang.countryappue.presentation.auth.RegisterScreen
 import dev.lchang.countryappue.presentation.favorites.FavoriteScreen
 import dev.lchang.countryappue.presentation.home.CountryListScreen
 import dev.lchang.countryappue.presentation.permissions.GalleryPermissionScreen
+import dev.lchang.countryappue.presentation.webview.WebViewScreen
 
 @Composable
 fun NavigationMenu(){
@@ -43,6 +44,12 @@ fun NavigationMenu(){
         composable("football"){
             DrawerScaffold(navController) {
                 ApiFootballScreen()
+            }
+        }
+
+        composable("web"){
+            DrawerScaffold(navController) {
+                WebViewScreen()
             }
         }
 

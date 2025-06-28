@@ -78,6 +78,16 @@ fun DrawerScaffold(navController: NavController, content: @Composable () -> Unit
                         scope.launch { drawerState.close() }
                     }
                 )
+
+                //WebView navigation
+                NavigationDrawerItem(
+                    label = { Text("Web") },
+                    selected = false,
+                    onClick = {
+                        navController.navigate("web")
+                        scope.launch { drawerState.close() }
+                    }
+                )
             }
         }
     ) {
